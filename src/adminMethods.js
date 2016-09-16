@@ -3,23 +3,6 @@ const Command = require('./models.js').Command;
 
 // Admin
 
-// true if msg comes from an authorized user (the client, basically)
-const authorizeMsg = () => {
-  // TODO: check authorization
-  return true
-};
-
-// const setCommand = (bot, msg) => {
-//   if (msg.text) {
-//     setTextCommand(bot, msg);
-//   } else {
-//     setPhotoCommand(bot, msg);
-//   }
-// }
-
-const setPhotoCommand = (bot, msg) => {
-  console.log('received photo message, msg ==', msg);
-}
 
 const setCommand = (bot, msg) => {
   let command;
@@ -29,7 +12,7 @@ const setCommand = (bot, msg) => {
       resp: msg.text.split(' ').slice(2).join(' '),
       type: "text"
     };
-    saveCommand(command);
+    saveCommand(command, bot, msg);
   }
   if (msg.photo) {
     // TODO : some kind of handler for photo but no caption
@@ -42,37 +25,47 @@ const setCommand = (bot, msg) => {
     // now, download that file
     // console.log("dl'ing photo, command ==", command);
     bot.getFile(fileId).then((file) => {
-      console.log('file to dl ==', file);
+      //console.log('file to dl ==', file);
       bot.downloadFile(file.file_id, './photos');
       command.resp = './photos/' + file.file_path.split('/')[1];
-      console.log('command ==', command);
-      saveCommand(command);
+      //console.log('command ==', command);
+      saveCommand(command, bot, msg);
     });
-    // bot.sendPhoto(msg.from.id, 'photo/file_8.jpg');
-    //bot.downloadFile(command.resp, '../photos'); //TODO: constant for photos directory
   }
 };
 
-const saveCommand = (command) => {
+const saveCommand = (command, bot, msg) => {
   Command.findOne({'name': command.name}, (err, foundCommand) => {
     if (err) {
-      //TODO: some kind of error handling
+      bot.sendMessage(msg.from.id, "Error saving /" + command)
     } else if (foundCommand) {
       Object.assign(foundCommand, command);
       foundCommand.save((err) => {
-        // TODO: Success handler, i guess? I don't like having to pass around fromId like this
+        bot.sendMessage(msg.from.id, "Updated command /" + command)
         createMenu();
       });
     } else {
       const newCommand = new Command();
       Object.assign(newCommand, command);
       newCommand.save(() => {
+        bot.sendMessage(msg.from.id, "Saved new command /" + command)
         createMenu();
       });
-      // TODO: success handler
     }
   });
 };
+
+const deleteCommand = (bot, msg) => {
+  const command = msg.text.split(' ')[1];
+  Command.remove({name: command}, () => {
+    if (err) {
+      bot.sendMessage("Sorry, couldn't delete /" + command);
+    } else {
+      bot.sendMessage("/" + command +" deleted");
+    }
+  });
+
+}
 
 const handleError = (err, fromId) => {
   const errs = {
@@ -113,11 +106,12 @@ const adminCallbacks = {
 };
 
 const adminCommands = [
-  'setcommand'
+  'setcommand',
+  'deletecommand'
 ];
 
 const createMenu = () => {
-  getCommands().then((commands) => {
+  Command.find({}).exec((err, commands) => {
     menu.text = 'Menu:' + commands.map((command) => '\n\/' + command.name).join('');
     console.log('menu.text ==', menu.text);
   });
@@ -131,7 +125,6 @@ let menu = {}; // somewhat hackishly making this an object, so it's pass by ref
 createMenu();
 
 module.exports = {
-  authorizeMsg: authorizeMsg,
   setCommand: setCommand,
   getCommands: getCommands,
   adminCallbacks: adminCallbacks,

@@ -18,11 +18,10 @@ bot.onText(/^.+$/, (msg, match) => {
   console.log('match ==', match);
   let command = match[0].match(/^\/(.+?)( |$)/)
   if (command) { // a command has been found
-    console.log('command found, ==', command) 
+    console.log('command found, ==', command)
     // command = command[1]; // get the command, drop / and trailing space
-    if (adminMethods.adminCommands.indexOf(command[1]) !== -1) {
+    if (adminMethods.adminCommands.indexOf(command[1]) !== -1 && adminMethods.authenticate(msg)) {
       // It's an admin command
-      // TODO: add authentication
       console.log('firing admin callback')
       adminMethods.adminCallbacks[command[1]](bot, msg);
     } else {
