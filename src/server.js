@@ -44,5 +44,5 @@ bot.on('photo', msg => {
 });
 
 bot.on('text', msg => {
-  chatMethods.saveChat(msg);
+  chatMethods.saveMessage(msg);
 });
