@@ -18,7 +18,7 @@ const setCommand = (bot, msg) => {
 
 const setTextCommand = (bot, msg) => {
   command = {
-    name: mgs.text.split(' ')[1],
+    name: msg.text.split(' ')[1],
     resp: msg.text.split(' ').slice(2).join(' '),
     type: "text"
   };
