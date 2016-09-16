@@ -3,3 +3,6 @@
 npm-debug.log
 src/config.js
 config.js
+*.swp
+*.swo
+*~
