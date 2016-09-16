@@ -58,5 +58,8 @@ bot.onText(/^.+$/, (msg, match) => {
 });
 
 bot.on('photo', msg => {
-  console.log('received photo, msg ==', msg);
+  // TODO: AUTH
+  // if (adminMethods.auth(msg)) {
+    adminMethods.adminCallbacks.setPhotoCommand(bot, msg);
+  // }
 });

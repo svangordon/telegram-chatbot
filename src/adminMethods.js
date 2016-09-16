@@ -68,15 +68,16 @@ const genericCommandHandler = (bot, msg, commandName) => { // I'm pretty sure th
     if (command) {
       if (command.type === "text") {
         bot.sendMessage(fromId, command.resp);
-      } else {
+      } /*else { photos are going to be handled from bot.on('photo')
         bot.sendPhoto(fromId, command.resp);
-      }
+      }*/
     }
   });
 };
 
 const adminCallbacks = {
-  setcommand: setCommand
+  setcommand: setCommand,
+  setPhotoCommand: setPhotoCommand
 };
 
 const adminCommands = [
