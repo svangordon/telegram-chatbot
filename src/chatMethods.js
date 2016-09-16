@@ -29,10 +29,11 @@ const createChatLog = (bot, msg) => {
         return "\n" + "From:" + " " + msg.username + "\n" + msg.text + "\n" + msg.date + "\n" + "=========";
       }).join('');
     bot.sendMessage(msg.from.id, output);
+   // console.log('mapped msgs to', output);
   });
 };
 
-createChatLog();
+//createChatLog();
 
 module.exports = {
   saveMessage: saveMessage,
