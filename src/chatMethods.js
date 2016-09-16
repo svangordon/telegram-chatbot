@@ -66,5 +66,6 @@ const downloadChatLog = (bot, msg) => {
 module.exports = {
   saveMessage: saveMessage,
   createChatLog: createChatLog,
-  getChatLog: getChatLog
+  getChatLog: getChatLog,
+  downloadChatLog: downloadChatLog
 }

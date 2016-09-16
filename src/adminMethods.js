@@ -105,13 +105,14 @@ const adminCallbacks = {
   deletecommand: deleteCommand,
   deleteCommand: deleteCommand,
   getchatlog: chatMethods.getChatLog,
-  downloadchatlog: chatMethods.downloadchatlog
+  downloadchatlog: chatMethods.downloadChatLog
 };
 
 const adminCommands = [
   'setcommand',
   'deletecommand',
-  'getchatlog'
+  'getchatlog',
+  'downloadchatlog'
 ];
 
 const createMenu = () => {
