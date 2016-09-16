@@ -111,7 +111,7 @@ const adminCallbacks = {
 const adminCommands = [
   'setcommand',
   'deletecommand',
-  'getchatlogs'
+  'getchatlog'
 ];
 
 const createMenu = () => {

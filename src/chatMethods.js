@@ -17,7 +17,7 @@ const createChatLog = () => {
   return Message.find({})
     .sort({date: 1})
     .exec((err, messages) => {
-      console.log('found messages', messages);
+      //console.log('found messages', messages);
       const output = messages.map((msg) => {
         return {
           date: moment.unix(msg.date).format(),
@@ -34,13 +34,16 @@ const createChatLog = () => {
 
 // createChatLog();
 
-const getChatLogs = (bot, msg) => {
-  createChatLog.then((chatLog) => {
+const getChatLog = (bot, msg) => {
+  console.log(createChatLog());
+  createChatLog().then((chatLog) => {
+    console.log('getchatlog', chatLog);
     bot.sendMessage(msg.from.id, chatLog);
   });
 }
 
 module.exports = {
   saveMessage: saveMessage,
-  createChatLog: createChatLog
+  createChatLog: createChatLog,
+  getChatLog: getChatLog
 }
