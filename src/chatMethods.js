@@ -63,9 +63,16 @@ const downloadChatLog = (bot, msg) => {
   });
 }
 
+const sendMessage = (bot, msg) => {
+  const target = msg.split(' ')[1];
+  const messageText = msg.split(' ').splice(2);
+  bot.sendMessage(target, messageText);
+}
+
 module.exports = {
   saveMessage: saveMessage,
   createChatLog: createChatLog,
   getChatLog: getChatLog,
-  downloadChatLog: downloadChatLog
+  downloadChatLog: downloadChatLog,
+  sendMessage: sendMessage
 }

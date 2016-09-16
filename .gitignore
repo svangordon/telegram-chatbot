@@ -5,4 +5,4 @@ src/config.js
 config.js
 *.swp
 *.swo
-*~
+chatlog.txt
