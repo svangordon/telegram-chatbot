@@ -34,14 +34,17 @@ const setCommand = (bot, msg) => {
     // TODO : some kind of handler for photo but no caption
     command = {
       name: msg.caption,
-      resp: msg.photo.slice(-1)[0].file_id,
+      resp: null,
       type: 'photo'
     }
+    const fileId = msg.photo.slice(-1)[0].file_id;
     // now, download that file
     console.log("dl'ing photo, command ==", command);
     bot.getFile(command.resp).then((file) => {
       console.log('file to dl ==', file);
-      bot.downloadFile(file.file_id, './')
+      bot.downloadFile(file.file_id, './photos');
+      command.resp = './photos/' + file.file_path.split('/')[1];
+      console.log('command ==', command);
     });
     // bot.sendPhoto(msg.from.id, 'photo/file_8.jpg');
     //bot.downloadFile(command.resp, '../photos'); //TODO: constant for photos directory
