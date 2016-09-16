@@ -40,9 +40,10 @@ const setCommand = (bot, msg) => {
     // now, download that file
     console.log("dl'ing photo, command ==", command);
     bot.getFile(command.resp).then((file) => {
-	console.log('downloaded file', file);
+      console.log('file to dl ==', file);
+      bot.downloadFile(file.file_id, './')
     });
-    bot.sendPhoto(msg.from.id, 'photo/file_8.jpg');
+    // bot.sendPhoto(msg.from.id, 'photo/file_8.jpg');
     //bot.downloadFile(command.resp, '../photos'); //TODO: constant for photos directory
   }
   Command.findOne({'name': command.name}, (err, foundCommand) => {
