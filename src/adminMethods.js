@@ -96,7 +96,7 @@ const genericCommandHandler = (bot, msg, commandName) => { // I'm pretty sure th
     if (command) {
       if (command.type === "text") {
         bot.sendMessage(fromId, command.resp);
-      } else { 
+      } else {
         bot.sendPhoto(fromId, command.resp);
       }
     }
@@ -115,12 +115,12 @@ const adminCommands = [
 
 const createMenu = () => {
   getCommands().then((commands) => {
-    menu = 'Menu:' + commands.map((command) => '\n\/' + command.name).join('');
-    console.log('menu ==', menu);
+    menu.text = 'Menu:' + commands.map((command) => '\n\/' + command.name).join('');
+    console.log('menu.text ==', menu.text);
   });
 }
 
-let menu;
+let menu = {}; // somewhat hackishly making this an object, so it's pass by ref
 createMenu();
 
 module.exports = {

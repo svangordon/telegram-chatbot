@@ -38,7 +38,7 @@ bot.onText(/^.+$/, (msg, match) => {
     }
   } else { // no command has been found
     console.log('adminMethods.menu ==', adminMethods.menu);
-    bot.sendMessage(fromId, adminMethods.menu);
+    bot.sendMessage(fromId, adminMethods.menu.text);
   }
 });
 
