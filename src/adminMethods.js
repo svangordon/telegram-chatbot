@@ -39,8 +39,8 @@ const setCommand = (bot, msg) => {
     }
     const fileId = msg.photo.slice(-1)[0].file_id;
     // now, download that file
-    console.log("dl'ing photo, command ==", command);
-    bot.getFile(command.resp).then((file) => {
+    // console.log("dl'ing photo, command ==", command);
+    bot.getFile(fileId).then((file) => {
       console.log('file to dl ==', file);
       bot.downloadFile(file.file_id, './photos');
       command.resp = './photos/' + file.file_path.split('/')[1];
