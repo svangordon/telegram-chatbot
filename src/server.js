@@ -26,10 +26,12 @@ const authorizeMsg = () => {
 
 const parseSetCommandMsg = (msg) => {
   console.log('parsing msg', msg);
-  return {
-    name: msg[0].split(' '),
-    resp: msg[0].split(' ').slice(2)
+  const parsedMsg = {
+    name: msg[0].split(' ')[1],
+    resp: msg[0].split(' ').slice(2).join(' ')
   };
+  console.log('parsed msg ==', parsedMsg);
+  return parsedMsg;
 };
 
 const setCommand = command => {
@@ -43,7 +45,10 @@ const setCommand = command => {
       });
     } else {
       const newCommand = new Command();
-      Object.assign(newCommand, command);
+      //Object.assign(newCommand, command);
+      newCommand.name = command.name;
+      newCommand.type = command.type;
+      newCommand.resp = command.resp;
       newCommand.save();
     }
   });

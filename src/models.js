@@ -4,11 +4,9 @@ var mongoose = require('mongoose'),
   // Command Schema
   // Keeps tracks of commands, and what they should output
   commandSchema = new Schema({
-    commandWord: String, // the text to invoke the command
-    resp: {
-      text: String,
-      image: String // filepath to the image
-    }
+    name: String, // the text to invoke the command
+    type: String,   
+    resp: String 
   });
 
 module.exports = {
