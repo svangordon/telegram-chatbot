@@ -27,8 +27,8 @@ bot.onText(/^.+$/, (msg, match) => {
       adminMethods.adminCallbacks[command[1]](bot, msg);
     } else {
       // It's not an admin command
-      console.log('firing generic handler, command ==','"'+ command+'"');
-      adminMethods.genericCommandHandler(bot, msg, command);
+      console.log('firing generic handler, command ==','"'+ command[1]+'"');
+      adminMethods.genericCommandHandler(bot, msg, command[1]);
     }
   } else { // no command has been found
     console.log('adminMethods.menu ==', adminMethods.menu);

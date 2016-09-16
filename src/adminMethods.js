@@ -57,11 +57,11 @@ const saveCommand = (command, bot, msg) => {
 
 const deleteCommand = (bot, msg) => {
   const command = msg.text.split(' ')[1];
-  Command.remove({name: command}, () => {
+  Command.remove({name: command}, (err) => {
     if (err) {
-      bot.sendMessage("Sorry, couldn't delete /" + command);
+      bot.sendMessage(msg.from.id, "Sorry, couldn't delete /" + command);
     } else {
-      bot.sendMessage("/" + command +" deleted");
+      bot.sendMessage(msg.from.id, "/" + command +" deleted");
     }
   });
 
@@ -102,7 +102,8 @@ const genericCommandHandler = (bot, msg, commandName) => { // I'm pretty sure th
 const adminCallbacks = {
   setcommand: setCommand,
   setCommand: setCommand,
-  setPhotoCommand: setPhotoCommand
+  deletecommand: deleteCommand,
+  deleteCommand: deleteCommand
 };
 
 const adminCommands = [
