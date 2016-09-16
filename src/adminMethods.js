@@ -8,11 +8,19 @@ const authorizeMsg = () => {
   return true
 };
 
-const setCommand = (command, type) => {
+const setCommand = (bot, msg) => {
+  if (msg.text) {
+    setTextCommand(bot,msg);
+  } else {
+    // set photo command
+  }
+}
+
+const setTextCommand = (bot, msg) => {
   command = {
-    name: command[0].split(' ')[1],
-    resp: command[0].split(' ').slice(2).join(' '),
-    type: type
+    name: mgs.text.split(' ')[1],
+    resp: msg.text.split(' ').slice(2).join(' '),
+    type: "text"
   };
   Command.findOne({'name': command.name}, (err, foundCommand) => {
     if (err) {
@@ -26,6 +34,7 @@ const setCommand = (command, type) => {
       const newCommand = new Command();
       Object.assign(newCommand, command);
       newCommand.save();
+      // TODO: success handler
     }
   });
 };
