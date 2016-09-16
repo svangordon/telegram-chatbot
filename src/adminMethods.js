@@ -29,6 +29,7 @@ const setCommand = (bot, msg) => {
       resp: msg.text.split(' ').slice(2).join(' '),
       type: "text"
     };
+    saveCommand(command);
   }
   if (msg.photo) {
     // TODO : some kind of handler for photo but no caption
@@ -45,10 +46,14 @@ const setCommand = (bot, msg) => {
       bot.downloadFile(file.file_id, './photos');
       command.resp = './photos/' + file.file_path.split('/')[1];
       console.log('command ==', command);
+      saveCommand(command);
     });
     // bot.sendPhoto(msg.from.id, 'photo/file_8.jpg');
     //bot.downloadFile(command.resp, '../photos'); //TODO: constant for photos directory
   }
+};
+
+const saveCommand = (command) => {
   Command.findOne({'name': command.name}, (err, foundCommand) => {
     if (err) {
       //TODO: some kind of error handling
