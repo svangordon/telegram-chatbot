@@ -15,7 +15,8 @@ var mongoose = require('mongoose'),
     messageId: Number,
     from: Schema.Types.Mixed,
     chat: Schema.Types.Mixed,
-    date: Number
+    date: Number,
+    text: String
   });
 
 module.exports = {
