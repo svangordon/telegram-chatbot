@@ -10,10 +10,14 @@ const authorizeMsg = () => {
 
 const setCommand = (bot, msg) => {
   if (msg.text) {
-    setTextCommand(bot,msg);
+    setTextCommand(bot, msg);
   } else {
-    // set photo command
+    setPhotoCommand(bot, msg);
   }
+}
+
+const setPhotoCommand = (bot, msg) => {
+  console.log('received photo message, msg ==', msg);
 }
 
 const setTextCommand = (bot, msg) => {
