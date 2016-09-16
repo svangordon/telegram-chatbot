@@ -96,9 +96,9 @@ const genericCommandHandler = (bot, msg, commandName) => { // I'm pretty sure th
     if (command) {
       if (command.type === "text") {
         bot.sendMessage(fromId, command.resp);
-      } /*else { photos are going to be handled from bot.on('photo')
+      } else { photos are going to be handled from bot.on('photo')
         bot.sendPhoto(fromId, command.resp);
-      }*/
+      }
     }
   });
 };
