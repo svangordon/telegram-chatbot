@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-  Schema = mongoose.schema,
+  Schema = mongoose.Schema;
 
   // Command Schema
   // Keeps tracks of commands, and what they should output

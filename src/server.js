@@ -1,6 +1,6 @@
 // Requires
 var mongoose = require('mongoose');
-var db = require('./models');
+const Command = require('./models.js').Command;
 mongoose.connect('mongodb://127.0.0.1:27017/reversobot');
 
 var TelegramBot = require('node-telegram-bot-api');
@@ -13,6 +13,50 @@ var bot = new TelegramBot(token, {polling: true});
 var userMessages = {};
 
 var commands = [/\/reciprocal/, /\/save/, /\/speak/];
+
+const createMenu = () => {
+  return "Menu \n Stewed frogs \n pickled bats";
+};
+
+// true if msg comes from an authorized user (the client, basically)
+const authorizeMsg = () => {
+  // TODO: check authorization
+  return true
+};
+
+const parseSetCommandMsg = (msg) => {
+  console.log('parsing msg', msg);
+  return {
+    name: msg[0].split(' '),
+    resp: msg[0].split(' ').slice(2)
+  };
+};
+
+const setCommand = command => {
+  Command.findOne({'name': command.name}, (err, foundCommand) => {
+    if (err) {
+      //TODO: some kind of error handling 
+    } else if (foundCommand) {
+      Object.assign(foundCommand, command);
+      foundCommand.save((err) => {
+        // TODO: Success handler, i guess? I don't like having to pass around fromId like this
+      });
+    } else {
+      const newCommand = new Command();
+      Object.assign(newCommand, command);
+      newCommand.save();
+    }
+  });
+
+};
+
+
+const handleError = (err, fromId) => {
+  const errs = {
+    saveCommand: "Sorry, I couldn't save that command. Please try again."
+  };
+  bot.sendMessage(fromId, errs[err]);
+}
 
 // // Matches /echo [whatever]
 bot.onText(/\/reciprocal (\d+)$/, function (msg, match) {
@@ -40,13 +84,34 @@ bot.onText(/\/remind/, function (msg) {
   bot.sendMessage(fromId, resp);
 });
 
-bot.onText(/^([^\/].+)/, function (msg, match) {
-  var fromId = msg.from.id;
-  var resp = match[0].split('').reverse().join('');
-  bot.sendMessage(fromId, resp);
-})
+// TODO: write the image one of these
+bot.onText(/\/setcommand .+/, (msg, match) => {
+  if (authorizeMsg(msg)) {
+    const commandData = parseSetCommandMsg(match);
+    commandData.type = "text";
+    console.log('setting command', commandData);
+    setCommand(commandData);
+  }
+});
 
-})
+//bot.onText(/^([^\/].+)/, function (msg, match) {
+//  var fromId = msg.from.id;
+//  var resp = match[0].split('').reverse().join('');
+//  bot.sendMessage(fromId, resp);
+//})
+
+bot.onText(/^.+$/, (msg, match) => {
+  var fromId = msg.from.id;
+  if (commands.some((cur) => {
+    console.log('evaluating', cur);
+    return cur.test(match);
+  })) {
+    // the user used a command, so don't do anything.
+    // Actually, use this spot to write the message to the db
+  } else {
+    bot.sendMessage(fromId, createMenu());
+  }
+});
 
 // Any kind of message
 //bot.on('message', function (msg) {
