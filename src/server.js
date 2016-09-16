@@ -12,25 +12,17 @@ var bot = new TelegramBot(token, {polling: true});
 
 const adminMethods = require('./adminMethods.js');
 
-const commands = adminMethods.getCommands();
-
-// // TODO: write the image one of these
-// bot.onText(/\/setcommand .+/, (msg, match) => {
-//   if (authorizeMsg(msg)) {
-//     setCommand(match, "text");
-//   }
-// });
-
 bot.onText(/^.+$/, (msg, match) => {
   var fromId = msg.from.id;
   console.log('match ==', match);
-  if (match[0].match(/^(\/.+?)( |$)/)) { // a command has been found
-    const command = match[0].match(/^\/(.+?)( |$)/)[1]; // get the command, drop / and trailing space
-    if (adminMethods.adminCommands.indexOf(command) !== -1) {
+  let command = match[0].match(/^(\/.+?)( |$)/)
+  if (command) { // a command has been found
+    // command = command[1]; // get the command, drop / and trailing space
+    if (adminMethods.adminCommands.indexOf(command[1]) !== -1) {
       // It's an admin command
       // TODO: add authentication
       console.log('firing admin callback')
-      adminMethods.adminCallbacks[command](bot, msg);
+      adminMethods.adminCallbacks[command[1]](bot, msg);
     } else {
       // It's not an admin command
       console.log('firing generic handler, command ==','"'+ command+'"');

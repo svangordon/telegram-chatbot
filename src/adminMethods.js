@@ -68,6 +68,8 @@ const saveCommand = (command) => {
       newCommand.save();
       // TODO: success handler
     }
+  }).then(() => {
+    createMenu();
   });
 };
 
@@ -132,5 +134,6 @@ module.exports = {
   adminCommands: adminCommands,
   genericCommandHandler: genericCommandHandler,
   createMenu: createMenu,
-  menu: menu
+  menu: menu,
+  authenticate: authenticate
 };
