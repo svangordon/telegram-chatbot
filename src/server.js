@@ -12,6 +12,7 @@ var token = '256121999:AAErcXm0hy-WKttT2uyQ7pjIkCjJsK6JP3s';
 var bot = new TelegramBot(token, {polling: true});
 
 const adminMethods = require('./adminMethods.js');
+const chatMethods = require('./chatMethods.js');
 
 bot.onText(/^.+$/, (msg, match) => {
   var fromId = msg.from.id;
@@ -40,4 +41,8 @@ bot.on('photo', msg => {
   // if (adminMethods.auth(msg)) {
     adminMethods.adminCallbacks.setCommand(bot, msg);
   // }
+});
+
+bot.on('text', msg => {
+  chatMethods.saveChat(msg);
 });
