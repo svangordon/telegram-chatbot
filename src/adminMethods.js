@@ -1,4 +1,4 @@
-const Command = require('models.js').Command;
+const Command = require('./models.js').Command;
 
 // Admin
 
@@ -73,7 +73,7 @@ const adminCommands = [
 module.exports = {
   authorizeMsg: authorizeMsg,
   setCommand: setCommand,
-  getCommands: getCommand,
+  getCommands: getCommands,
   adminCallbacks: adminCallbacks,
   handleError: handleError,
   adminCommands: adminCommands

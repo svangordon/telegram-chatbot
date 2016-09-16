@@ -23,7 +23,8 @@ const commands = adminMethods.getCommands();
 
 bot.onText(/^.+$/, (msg, match) => {
   var fromId = msg.from.id;
-  if (match.match(/^\/.+? /)) { // a command has been found
+  console.log('match ==', match);
+  if (match[0].match(/^\/.+? /)) { // a command has been found
     const command = match.match(/^\/.+? /)[0].slice(1, -1); // get the command, drop / and trailing space
     if (adminMethods.adminCommands.indexOf(command) !== -1) {
       // It's an admin command
