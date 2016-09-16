@@ -90,6 +90,7 @@ const genericCommandHandler = (bot, msg, commandName) => { // I'm pretty sure th
 
 const adminCallbacks = {
   setcommand: setCommand,
+  setCommand: setCommand,
   setPhotoCommand: setPhotoCommand
 };
 

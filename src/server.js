@@ -44,6 +44,6 @@ bot.onText(/^.+$/, (msg, match) => {
 bot.on('photo', msg => {
   // TODO: AUTH
   // if (adminMethods.auth(msg)) {
-    adminMethods.adminCallbacks.setPhotoCommand(bot, msg);
+    adminMethods.adminCallbacks.setCommand(bot, msg);
   // }
 });
