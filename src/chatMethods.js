@@ -76,7 +76,7 @@ const sendMessage = (bot, msg) => {
 
 const clearChatLog = (bot, msg) => {
   Message.db.db.dropCollection('messages', (err, result) => {
-    bot.sendMessage(msg.from.id, result + "messages deleted");
+    bot.sendMessage(msg.from.id,"Chat log cleared");
   });
 }
 
