@@ -14,16 +14,20 @@ const saveMessage = (msg) => {
 }
 
 const createChatLog = () => {
-  Message.find({}).sort({date: 1}, (err, messages) => {
-    console.log('found messages', messages);
-    const output = messages.map((msg) => {
-      return {
-        date: moment(msg.date).format(),
-        from: msg.from.id,
-        username: msg.from.username,
-        text: msg.from.username
-      }
-    });
+  return Message.find({})
+    .sort({date: 1})
+    .exec((err, messages) => {
+      console.log('found messages', messages);
+      const output = messages.map((msg) => {
+        return {
+          date: moment.unix(msg.date).format(),
+          from: msg.from.id,
+          username: msg.from.username,
+          text: msg.text
+        }
+      }).map((msg) => {
+        return "\n" + "From:" + " " + msg.username + "\n" + msg.text + "\n" + msg.date + "\n" + "=========";
+      }).join('');
     console.log('mapped msgs to', output);
   });
 };
