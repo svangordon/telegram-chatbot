@@ -56,3 +56,7 @@ bot.onText(/^.+$/, (msg, match) => {
   //   bot.sendMessage(fromId, createMenu());
   // }
 });
+
+bot.on('photo', msg => {
+  console.log('received photo, msg ==', msg);
+});
