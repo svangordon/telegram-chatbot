@@ -54,9 +54,9 @@ const genericCommandHandler = (bot, msg, commandName) => { // I'm pretty sure th
     }
     if (command) {
       if (command.type === "text") {
-        bot.sendMessage(fromId, resp);
+        bot.sendMessage(fromId, command.resp);
       } else {
-        bot.sendPhoto(fromId, resp);
+        bot.sendPhoto(fromId, command.resp);
       }
     }
   });
