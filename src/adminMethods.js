@@ -38,7 +38,12 @@ const setCommand = (bot, msg) => {
       type: 'photo'
     }
     // now, download that file
-    bot.downloadFile(command.resp, '../photos'); //TODO: constant for photos directory
+    console.log("dl'ing photo, command ==", command);
+    bot.getFile(command.resp).then((file) => {
+	console.log('downloaded file', file);
+    });
+    bot.sendPhoto(msg.from.id, 'photo/file_8.jpg');
+    //bot.downloadFile(command.resp, '../photos'); //TODO: constant for photos directory
   }
   Command.findOne({'name': command.name}, (err, foundCommand) => {
     if (err) {
