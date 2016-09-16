@@ -114,9 +114,13 @@ const adminCommands = [
 ];
 
 const createMenu = () => {
-  console.log('get commands = ', getCommands());
+  getCommands().then((commands) => {
+    menu = 'Menu:' + commands.map((command) => '\n\/' + command.name).join('');
+    console.log('menu ==', menu);
+  });
 }
 
+let menu;
 createMenu();
 
 module.exports = {
@@ -127,5 +131,6 @@ module.exports = {
   handleError: handleError,
   adminCommands: adminCommands,
   genericCommandHandler: genericCommandHandler,
-  createMenu: createMenu
+  createMenu: createMenu,
+  menu: menu
 };

@@ -37,7 +37,8 @@ bot.onText(/^.+$/, (msg, match) => {
       adminMethods.genericCommandHandler(bot, msg, command);
     }
   } else { // no command has been found
-    bot.sendMessage(fromId, "Imagine this is the menu");
+    console.log('adminMethods.menu ==', adminMethods.menu);
+    bot.sendMessage(fromId, adminMethods.menu);
   }
 });
 
