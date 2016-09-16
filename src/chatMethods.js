@@ -72,6 +72,12 @@ const sendMessage = (bot, msg) => {
     console.log('found ', msg);
     bot.sendMessage(msg.from.id, messageText);
   });
+};
+
+const clearChatLog = (bot, msg) => {
+  Message.db.db.dropCollection('messages', (err, result) => {
+    bot.sendMessage(msg.from.id, result + "messages deleted");
+  });
 }
 
 module.exports = {
@@ -79,5 +85,6 @@ module.exports = {
   createChatLog: createChatLog,
   getChatLog: getChatLog,
   downloadChatLog: downloadChatLog,
-  sendMessage: sendMessage
+  sendMessage: sendMessage,
+  clearChatLog: clearChatLog
 }
