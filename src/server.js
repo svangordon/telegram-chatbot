@@ -39,22 +39,6 @@ bot.onText(/^.+$/, (msg, match) => {
   } else { // no command has been found
     bot.sendMessage(fromId, "Imagine this is the menu");
   }
-  // for (let i = 0; i < commands.length; i++) { // check all of our commands to see if any match. possibly needs to be streamlined (maybe just check for /)
-  //   if (match.indexOf('/' + commands[i].name) !== -1) { // we've found a command; check if it's an admin command
-  //     if (adminMethods.adminCallbacks[i]) {
-  //       adminMethods.adminCallbacks[i](msg)
-  //     } else {
-  //       adminMethods.genericCommandHandler(msg);
-  //     }
-  //   }
-  // }
-  // if (commands.some((cur) => {
-  //   return match.indexOf(cur.name) !== -1;
-  // })) {
-  //   adminMethods.commandCallbacks[]
-  // } else {
-  //   bot.sendMessage(fromId, createMenu());
-  // }
 });
 
 bot.on('photo', msg => {

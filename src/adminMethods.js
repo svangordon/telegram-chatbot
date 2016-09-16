@@ -8,24 +8,37 @@ const authorizeMsg = () => {
   return true
 };
 
-const setCommand = (bot, msg) => {
-  if (msg.text) {
-    setTextCommand(bot, msg);
-  } else {
-    setPhotoCommand(bot, msg);
-  }
-}
+// const setCommand = (bot, msg) => {
+//   if (msg.text) {
+//     setTextCommand(bot, msg);
+//   } else {
+//     setPhotoCommand(bot, msg);
+//   }
+// }
 
 const setPhotoCommand = (bot, msg) => {
   console.log('received photo message, msg ==', msg);
 }
 
-const setTextCommand = (bot, msg) => {
-  command = {
-    name: msg.text.split(' ')[1],
-    resp: msg.text.split(' ').slice(2).join(' '),
-    type: "text"
-  };
+const setCommand = (bot, msg) => {
+  let command;
+  if (msg.text) {
+    command = {
+      name: msg.text.split(' ')[1],
+      resp: msg.text.split(' ').slice(2).join(' '),
+      type: "text"
+    };
+  }
+  if (msg.photo) {
+    // TODO : some kind of handler for photo but no caption
+    command = {
+      name: msg.caption,
+      resp: msg.photo.slice(-1)[0].file_id,
+      type: 'photo'
+    }
+    // now, download that file
+    bot.downloadFile(command.resp, '../photos'); //TODO: constant for photos directory
+  }
   Command.findOne({'name': command.name}, (err, foundCommand) => {
     if (err) {
       //TODO: some kind of error handling
