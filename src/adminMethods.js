@@ -1,6 +1,6 @@
 'use strict';
 const Command = require('./models.js').Command;
-
+const chatMethods = require('./chatMethods');
 // Admin
 
 
@@ -103,12 +103,15 @@ const adminCallbacks = {
   setcommand: setCommand,
   setCommand: setCommand,
   deletecommand: deleteCommand,
-  deleteCommand: deleteCommand
+  deleteCommand: deleteCommand,
+  getChatLogs: chatMethods.createChatLog,
+  getchatlogs: chatMethods.createChatLog
 };
 
 const adminCommands = [
   'setcommand',
-  'deletecommand'
+  'deletecommand',
+  'getchatlogs'
 ];
 
 const createMenu = () => {
