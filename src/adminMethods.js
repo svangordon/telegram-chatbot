@@ -76,5 +76,6 @@ module.exports = {
   getCommands: getCommands,
   adminCallbacks: adminCallbacks,
   handleError: handleError,
-  adminCommands: adminCommands
+  adminCommands: adminCommands,
+  genericCommandHandler: genericCommandHandler
 };

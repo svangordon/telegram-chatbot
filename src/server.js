@@ -29,9 +29,11 @@ bot.onText(/^.+$/, (msg, match) => {
     if (adminMethods.adminCommands.indexOf(command) !== -1) {
       // It's an admin command
       // TODO: add authentication
+      console.log('firing admin callback')
       adminMethods.adminCallbacks[command](bot, msg);
     } else {
       // It's not an admin command
+      console.log('firing generic handler')
       adminMethods.genericCommandHandler(bot, msg, command);
     }
   } else { // no command has been found
