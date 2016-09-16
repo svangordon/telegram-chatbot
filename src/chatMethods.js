@@ -1,4 +1,5 @@
 'use strict';
+const moment = require('moment');
 const Message = require('./models.js').Message;
 
 const saveMessage = (msg) => {
@@ -11,6 +12,23 @@ const saveMessage = (msg) => {
     }
   });
 }
+
+const createChatLog = () => {
+  Message.find({}).sort({date: 1}, (err, messages) => {
+    console.log('found messages', messages);
+    const output = messages.map((msg) => {
+      return {
+        date: moment(msg.date).format(),
+        from: msg.from.id,
+        username: msg.from.username,
+        text: msg.from.username
+      }
+    });
+    console.log('mapped msgs to', output);
+  });
+};
+
+createChatLog();
 
 module.exports = {
   saveMessage: saveMessage
