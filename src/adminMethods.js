@@ -1,3 +1,4 @@
+'use strict';
 const Command = require('./models.js').Command;
 
 // Admin
