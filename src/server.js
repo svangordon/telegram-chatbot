@@ -1,15 +1,18 @@
+// Requires
 var mongoose = require('mongoose');
+var db = require('./models');
 mongoose.connect('mongodb://127.0.0.1:27017/reversobot');
 
 var TelegramBot = require('node-telegram-bot-api');
 
+// move this to config, again
 var token = '256121999:AAErcXm0hy-WKttT2uyQ7pjIkCjJsK6JP3s';
 // Setup polling way
 var bot = new TelegramBot(token, {polling: true});
 
 var userMessages = {};
 
-var commands = [/\/reciprocal/, /\save/, /\speak/];
+var commands = [/\/reciprocal/, /\/save/, /\/speak/];
 
 // // Matches /echo [whatever]
 bot.onText(/\/reciprocal (\d+)$/, function (msg, match) {
@@ -24,13 +27,13 @@ bot.onText(/\menu/, function (msg) {
   bot.sendMessage(fromId, resp);
 });
 
-bot.onText(/\/remember (.+$)/, function (msg, match) { 
+bot.onText(/\/remember (.+$)/, function (msg, match) {
   var fromId = msg.from.id;
   userMessages[fromId] = match[1];
-  bot.sendMessage(fromId, "Got it. Tell me to \/remind you later."); 
+  bot.sendMessage(fromId, "Got it. Tell me to \/remind you later.");
 });
 
-bot.onText(/\/remind/, function (msg) { 
+bot.onText(/\/remind/, function (msg) {
   var fromId = msg.from.id;
   var message = userMessages[fromId];
   var resp = message ? "Earlier, you asked me to remember this message:\n" + message : "I'm sorry, I can't remember your message.";
@@ -41,6 +44,8 @@ bot.onText(/^([^\/].+)/, function (msg, match) {
   var fromId = msg.from.id;
   var resp = match[0].split('').reverse().join('');
   bot.sendMessage(fromId, resp);
+})
+
 })
 
 // Any kind of message
