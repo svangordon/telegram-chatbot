@@ -24,8 +24,8 @@ const commands = adminMethods.getCommands();
 bot.onText(/^.+$/, (msg, match) => {
   var fromId = msg.from.id;
   console.log('match ==', match);
-  if (match[0].match(/^\/.+?( |$)/)) { // a command has been found
-    const command = match[0].match(/^\/.+?( |$)/)[0].slice(1, -1); // get the command, drop / and trailing space
+  if (match[0].match(/^(\/.+?)( |$)/)) { // a command has been found
+    const command = match[0].match(/^\/(.+?)( |$)/)[1]; // get the command, drop / and trailing space
     if (adminMethods.adminCommands.indexOf(command) !== -1) {
       // It's an admin command
       // TODO: add authentication
@@ -33,7 +33,7 @@ bot.onText(/^.+$/, (msg, match) => {
       adminMethods.adminCallbacks[command](bot, msg);
     } else {
       // It's not an admin command
-      console.log('firing generic handler')
+      console.log('firing generic handler, command ==','"'+ command+'"');
       adminMethods.genericCommandHandler(bot, msg, command);
     }
   } else { // no command has been found
