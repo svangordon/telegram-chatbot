@@ -13,7 +13,7 @@ const saveMessage = (msg) => {
   });
 }
 
-const createChatLog = (bot, msg) => {
+const createChatLog = () => {
   return Message.find({})
     .sort({date: 1})
     .exec((err, messages) => {
@@ -28,11 +28,17 @@ const createChatLog = (bot, msg) => {
       }).map((msg) => {
         return "\n" + "From:" + " " + msg.username + "\n" + msg.text + "\n" + msg.date + "\n" + "=========";
       }).join('');
-    bot.sendMessage(msg.from.id, output);
+    // bot.sendMessage(msg.from.id, output);
   });
 };
 
-createChatLog();
+// createChatLog();
+
+const getChatLogs = (bot, msg) => {
+  createChatLog.then((chatLog) => {
+    bot.sendMessage(msg.from.id, chatLog);
+  });
+}
 
 module.exports = {
   saveMessage: saveMessage,

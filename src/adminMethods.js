@@ -104,8 +104,8 @@ const adminCallbacks = {
   setCommand: setCommand,
   deletecommand: deleteCommand,
   deleteCommand: deleteCommand,
-  getChatLogs: chatMethods.createChatLog,
-  getchatlogs: chatMethods.createChatLog
+  getchatlog: chatMethods.getChatLog,
+  downloadchatlog: chatMethods.downloadchatlog
 };
 
 const adminCommands = [
