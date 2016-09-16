@@ -61,15 +61,16 @@ const saveCommand = (command) => {
       Object.assign(foundCommand, command);
       foundCommand.save((err) => {
         // TODO: Success handler, i guess? I don't like having to pass around fromId like this
+        createMenu();
       });
     } else {
       const newCommand = new Command();
       Object.assign(newCommand, command);
-      newCommand.save();
+      newCommand.save(() => {
+        createMenu();
+      });
       // TODO: success handler
     }
-  }).then(() => {
-    createMenu();
   });
 };
 
@@ -120,6 +121,10 @@ const createMenu = () => {
     menu.text = 'Menu:' + commands.map((command) => '\n\/' + command.name).join('');
     console.log('menu.text ==', menu.text);
   });
+}
+
+const authenticate = () => {
+  return true;
 }
 
 let menu = {}; // somewhat hackishly making this an object, so it's pass by ref

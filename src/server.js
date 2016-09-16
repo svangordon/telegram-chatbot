@@ -1,3 +1,4 @@
+'use strict';
 // Requires
 var mongoose = require('mongoose');
 const Command = require('./models.js').Command;
@@ -15,8 +16,9 @@ const adminMethods = require('./adminMethods.js');
 bot.onText(/^.+$/, (msg, match) => {
   var fromId = msg.from.id;
   console.log('match ==', match);
-  let command = match[0].match(/^(\/.+?)( |$)/)
+  let command = match[0].match(/^\/(.+?)( |$)/)
   if (command) { // a command has been found
+    console.log('command found, ==', command) 
     // command = command[1]; // get the command, drop / and trailing space
     if (adminMethods.adminCommands.indexOf(command[1]) !== -1) {
       // It's an admin command
