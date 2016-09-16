@@ -113,6 +113,12 @@ const adminCommands = [
   'setcommand'
 ];
 
+const createMenu = () => {
+  console.log('get commands = ', getCommands());
+}
+
+createMenu();
+
 module.exports = {
   authorizeMsg: authorizeMsg,
   setCommand: setCommand,
@@ -120,5 +126,6 @@ module.exports = {
   adminCallbacks: adminCallbacks,
   handleError: handleError,
   adminCommands: adminCommands,
-  genericCommandHandler: genericCommandHandler
+  genericCommandHandler: genericCommandHandler,
+  createMenu: createMenu
 };
