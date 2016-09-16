@@ -48,7 +48,7 @@ const getCommands = () => { //
 
 const genericCommandHandler = (bot, msg, commandName) => { // I'm pretty sure that I need to be passing bot here, or else binding it somewhere else
   const fromId = msg.from.id;
-  Command.findOne({'name', commandName}, (err, command) => {
+  Command.findOne({'name': commandName}, (err, command) => {
     if (err) {
       console.log('error', err);
     }
