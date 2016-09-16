@@ -64,9 +64,14 @@ const downloadChatLog = (bot, msg) => {
 }
 
 const sendMessage = (bot, msg) => {
-  const target = msg.text.split(' ')[1];
-  const messageText = msg.text.split(' ').splice(2);
-  bot.sendMessage(target, messageText);
+  //console.log('msg.txt ==', msg.text.split(' '), msg.text.split(' ').slice());
+  const target = new RegExp(msg.text.split(' ')[1], "i");
+  const messageText = msg.text.split(' ').slice(2).join(' ');
+  console.log('msgtxt ==', messageText);
+  Message.findOne({'from.username': target}, (err, msg) => {
+    console.log('found ', msg);
+    bot.sendMessage(msg.from.id, messageText);
+  });
 }
 
 module.exports = {
