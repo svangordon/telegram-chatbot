@@ -1,6 +1,7 @@
 'use strict';
 const moment = require('moment');
 const Message = require('./models.js').Message;
+const fs = require('fs');
 
 const saveMessage = (msg) => {
   console.log('saving message', msg);
@@ -47,10 +48,18 @@ const formatChatLog = (chatArr) => {
 }
 
 const getChatLog = (bot, msg) => {
-  console.log(createChatLog());
+  // console.log(createChatLog());
   createChatLog().then((chatLog) => {
-    console.log('getchatlog', chatLog);
+    // console.log('getchatlog', chatLog);
     bot.sendMessage(msg.from.id, formatChatLog(chatLog));
+  });
+}
+
+const downloadChatLog = (bot, msg) => {
+  createChatLog().then((chatLog) => {
+    fs.writeFile('./chatlog.txt', formatChatLog(chatLog), (err) => {
+      bot.sendDocument(msg.from.id, './chatlog.txt');
+    });
   });
 }
 
