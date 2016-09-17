@@ -26,6 +26,9 @@ bot.onText(/^.+$/, (msg, match) => {
       console.log('firing admin callback')
       adminMethods.adminCallbacks[command[1]](bot, msg);
     } else {
+      if (command[1] === 'start') {
+        bot.sendMessage(fromId, adminMethods.menu.text);
+      }
       // It's not an admin command
       console.log('firing generic handler, command ==','"'+ command[1]+'"');
       adminMethods.genericCommandHandler(bot, msg, command[1]);

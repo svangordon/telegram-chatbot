@@ -37,18 +37,18 @@ const setCommand = (bot, msg) => {
 const saveCommand = (command, bot, msg) => {
   Command.findOne({'name': command.name}, (err, foundCommand) => {
     if (err) {
-      bot.sendMessage(msg.from.id, "Error saving /" + command)
+      bot.sendMessage(msg.from.id, "Error saving /" + command.name)
     } else if (foundCommand) {
       Object.assign(foundCommand, command);
       foundCommand.save((err) => {
-        bot.sendMessage(msg.from.id, "Updated command /" + command)
+        bot.sendMessage(msg.from.id, "Updated command /" + command.name)
         createMenu();
       });
     } else {
       const newCommand = new Command();
       Object.assign(newCommand, command);
       newCommand.save(() => {
-        bot.sendMessage(msg.from.id, "Saved new command /" + command)
+        bot.sendMessage(msg.from.id, "Saved new command /" + command.name)
         createMenu();
       });
     }
@@ -62,17 +62,11 @@ const deleteCommand = (bot, msg) => {
       bot.sendMessage(msg.from.id, "Sorry, couldn't delete /" + command);
     } else {
       bot.sendMessage(msg.from.id, "/" + command +" deleted");
+      createMenu();
     }
   });
 
 }
-
-const handleError = (err, fromId) => {
-  const errs = {
-    saveCommand: "Sorry, I couldn't save that command. Please try again."
-  };
-  bot.sendMessage(fromId, errs[err]);
-};
 
 const getCommands = () => { //
   return Command.find({}).exec((err, commands) => {
@@ -126,9 +120,11 @@ const createMenu = () => {
   });
 }
 
-const authenticate = () => {
-  return true;
+const authenticate = (msg) => {
+  return whitelistedUsers.indexOf(msg.from.usrname) !== -1;
 }
+
+const whitelistedUsers = ['Frankendracula', 'Tourney15K'];
 
 let menu = {}; // somewhat hackishly making this an object, so it's pass by ref
 createMenu();
@@ -137,7 +133,6 @@ module.exports = {
   setCommand: setCommand,
   getCommands: getCommands,
   adminCallbacks: adminCallbacks,
-  handleError: handleError,
   adminCommands: adminCommands,
   genericCommandHandler: genericCommandHandler,
   createMenu: createMenu,
