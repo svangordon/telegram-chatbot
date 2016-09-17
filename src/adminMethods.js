@@ -9,7 +9,7 @@ const setCommand = (bot, msg) => {
   if (msg.text) {
     command = {
       name: msg.text.split(' ')[1],
-      resp: msg.text.split(' ').slice(2).join(' '),
+      resp: msg.text.split(' ').slice(2).join(' ').replace(/\|/g, '\n'),
       type: "text"
     };
     saveCommand(command, bot, msg);
