@@ -16,21 +16,21 @@ const chatMethods = require('./chatMethods.js');
 
 bot.onText(/^.+$/, (msg, match) => {
   var fromId = msg.from.id;
-  console.log('match ==', match);
+//  console.log('match ==', match);
   let command = match[0].match(/^\/(.+?)( |$)/);
   if (command) { // a command has been found
-    console.log('command found, ==', command)
+//    console.log('command found, ==', command)
     // command = command[1]; // get the command, drop / and trailing space
     if (adminMethods.adminCommands.indexOf(command[1]) !== -1 && adminMethods.authenticate(msg)) {
       // It's an admin command
-      console.log('firing admin callback')
+//      console.log('firing admin callback')
       adminMethods.adminCallbacks[command[1]](bot, msg);
     } else {
       if (command[1] === 'start') {
         bot.sendMessage(fromId, adminMethods.menu.text);
       }
       // It's not an admin command
-      console.log('firing generic handler, command ==','"'+ command[1]+'"');
+//      console.log('firing generic handler, command ==','"'+ command[1]+'"');
       adminMethods.genericCommandHandler(bot, msg, command[1]);
     }
   } else { // no command has been found
@@ -39,7 +39,7 @@ bot.onText(/^.+$/, (msg, match) => {
       adminMethods.genericCommandHandler(bot, msg, 'price');
       return;
     }
-    console.log('adminMethods.menu ==', adminMethods.menu);
+//    console.log('adminMethods.menu ==', adminMethods.menu);
     bot.sendMessage(fromId, adminMethods.menu.text);
   }
 });
