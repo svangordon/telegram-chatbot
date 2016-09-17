@@ -4,7 +4,10 @@ var mongoose = require('mongoose'),
   // Command Schema
   // Keeps tracks of commands, and what they should output
   commandSchema = new Schema({
-    name: String, // the text to invoke the command
+    name: {
+      type: String,
+      required: true
+    }, // the text to invoke the command
     type: String,
     resp: String
   });

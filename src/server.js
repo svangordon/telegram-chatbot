@@ -17,7 +17,7 @@ const chatMethods = require('./chatMethods.js');
 bot.onText(/^.+$/, (msg, match) => {
   var fromId = msg.from.id;
   console.log('match ==', match);
-  let command = match[0].match(/^\/(.+?)( |$)/)
+  let command = match[0].match(/^\/(.+?)( |$)/);
   if (command) { // a command has been found
     console.log('command found, ==', command)
     // command = command[1]; // get the command, drop / and trailing space
@@ -34,6 +34,11 @@ bot.onText(/^.+$/, (msg, match) => {
       adminMethods.genericCommandHandler(bot, msg, command[1]);
     }
   } else { // no command has been found
+    if (match.indexOf('price') !== -1) {
+      // hard coding in recognition of price command
+      adminMethods.genericCommandHandler(bot, msg, 'price');
+      return;
+    }
     console.log('adminMethods.menu ==', adminMethods.menu);
     bot.sendMessage(fromId, adminMethods.menu.text);
   }
