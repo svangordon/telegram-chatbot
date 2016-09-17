@@ -121,7 +121,7 @@ const createMenu = () => {
 }
 
 const authenticate = (msg) => {
-  return whitelistedUsers.indexOf(msg.from.usrname) !== -1;
+  return whitelistedUsers.indexOf(msg.from.username) !== -1;
 }
 
 const whitelistedUsers = ['Frankendracula', 'Tourney15K'];
