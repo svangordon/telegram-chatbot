@@ -71,7 +71,7 @@ const deleteCommand = (bot, msg) => {
 const getCommands = () => { //
   return Command.find({}).exec((err, commands) => {
     if (err) {
-      console.log('getCommands err:', err);
+      //console.log('getCommands err:', err);
     }
     return commands;
   });
@@ -81,7 +81,7 @@ const genericCommandHandler = (bot, msg, commandName) => { // I'm pretty sure th
   const fromId = msg.from.id;
   Command.findOne({'name': commandName}, (err, command) => {
     if (err) {
-      console.log('error', err);
+      //console.log('error', err);
     }
     if (command) {
       if (command.type === "text") {
@@ -116,7 +116,7 @@ const adminCommands = [
 const createMenu = () => {
   Command.find({}).exec((err, commands) => {
     menu.text = 'Menu:' + commands.map((command) => '\n\/' + command.name).join('');
-    console.log('menu.text ==', menu.text);
+    //console.log('menu.text ==', menu.text);
   });
 }
 
