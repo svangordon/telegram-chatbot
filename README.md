@@ -34,19 +34,19 @@ Deletes commandName from the available commands.  Example:
 Prints a log of all recorded chat messages to Telegram. Each message is shown with the user, the text of the message, and the time of the message. Does not work if the chat log is large: chatlog can only be downloaded. Example:
 
 	/getchatlog
-	>From: Frankendracula
+	>From: NomenNescio
 	>/deletecommand hello
 	>2016-09-16T22:03:50-04:00
 	>=========
-	>From: Frankendracula
+	>From: NomenNescio
 	>/setcommand hello Hello, World!
 	>2016-09-16T22:04:05-04:00
 	>=========
-	>From: Frankendracula
+	>From: NomenNescio
 	>/hello
 	>2016-09-16T22:04:44-04:00
 	>=========
-	>From: Frankendracula
+	>From: NomenNescio
 	>menu
 	>2016-09-16T22:07:07-04:00
 	>=========
